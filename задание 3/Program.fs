@@ -1,4 +1,4 @@
-﻿open System
+open System
 open System.IO
 
 let rec inputFilePath () = 
@@ -10,6 +10,8 @@ let rec inputFilePath () =
         printfn "дирректории не существует"
         inputFilePath ()
 
+
+
 let upCase (str:string) = 
     str.ToUpper()
 
@@ -17,8 +19,11 @@ let upCase (str:string) =
 [<EntryPoint>]
 let main _ =
     let path = inputFilePath ()
-    let files = Array.map upCase (Directory.GetFiles(path, ""))
-    let minFileName = Array.min files 
-    printfn "файлы в указанной дирректории: %A" files
-    printfn "первое по алфавиту имя: %s" minFileName 
+    let filesSeq = 
+        Directory.EnumerateFiles(path, "*")   
+        |> Seq.map upCase                      
+    let filesList = Seq.toList filesSeq
+    let minFileName = List.min filesList
+    printfn "файлы в указанной дирректории: %A" filesList
+    printfn "первое по алфавиту имя: %s" minFileName
     0
