@@ -22,8 +22,7 @@ let main _ =
     let filesSeq = 
         Directory.EnumerateFiles(path, "*")   
         |> Seq.map upCase                      
-    let filesList = Seq.toList filesSeq
-    let minFileName = List.min filesList
-    printfn "файлы в указанной дирректории: %A" filesList
-    printfn "первое по алфавиту имя: %s" minFileName
+    let maxFileName = Seq.max filesSeq
+    printfn "файлы в указанной дирректории:\n %A" filesSeq
+    printfn "последнее по алфавиту имя: %s" maxFileName
     0
