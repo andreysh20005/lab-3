@@ -1,10 +1,12 @@
-﻿open System
+open System
 
 let minimumLenth (a: string) (b: string) = 
-    if a.Length < b.Length then
-        a
-    else
-        b
+    if a<> ("\0") then
+        if a.Length < b.Length then
+            a
+        else
+            b
+    else b
 
 
 let rec inputNum () = 
@@ -25,11 +27,16 @@ let seqInput (n:int) =
             printfn "введите строку:"
             yield Console.ReadLine()}
 
+
 [<EntryPoint>]
 let main _ =
 
     let n = inputNum () 
     let mySeq = seqInput n
-    let minStr = Seq.fold minimumLenth (Seq.head mySeq) (Seq.tail mySeq)
-    printf "минимальная длинна строки в sequense = '%d' (строка %s)"  minStr.Length minStr
+    if n>1 then
+        let minStr = Seq.fold minimumLenth ("\0") (Seq.tail mySeq)
+        printf "минимальная длинна строки в sequense = '%d' (строка %s)"  minStr.Length minStr
+    else
+        let minStr = Seq.item(0) mySeq
+        printf "минимальная длинна строки в sequense = '%d' (строка %s)"  minStr.Length minStr
     0
